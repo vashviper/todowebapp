@@ -16,20 +16,20 @@
         <ul id="taskList"></ul>
     </div>
 
-    <!-- Bootstrap Modal for Editing Task -->
+<!-- Bootstrap Modal for Editing Task -->
 <div class="modal fade" id="editTaskModal" tabindex="-1" aria-labelledby="editTaskModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
+    <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title" id="editTaskModalLabel">Edit Task</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                <input type="text" id="editedTaskText" class="form-control" placeholder="Edit task text">
+                <input type="text" id="taskText" class="form-control" placeholder="Edit task text">
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-                <button type="button" class="btn btn-primary" onclick="submitEditedTask()">Submit</button>
+                <button type="button" class="btn btn-primary" id="submitTask">Submit</button>
             </div>
         </div>
     </div>
