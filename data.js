@@ -1,69 +1,45 @@
-let tasks = [];
-let editingTaskId = null;
+let todos = [];
+function addTodo(todos, name, urgency) {
+    let newTodo = {
+        id: Math.floor(Math.random() * 100 + 1),
+        name: name,
+        urgency: urgency
+    };
+    todos.push(newTodo);
+}
 
-function addTask() {
-    const taskInput = document.getElementById("taskInput");
-    const taskList = document.getElementById("taskList");
-
-    if (taskInput.value.trim() !== "") {
-        const task = {
-            id: Date.now(),
-            text: taskInput.value.trim(),
-        };
-
-        tasks.push(task);
-        updateTaskList(taskList);
-        taskInput.value = "";
+function modifyTask(todos, id, newName, newUrgency) {
+    // create the new task
+    let modifiedTask = {
+        "id": id,
+        "name": newName,
+        "urgency": newUrgency
     }
-}
 
-function deleteTask(id) {
-    tasks = tasks.filter(task => task.id !== id);
-    const taskList = document.getElementById("taskList");
-    updateTaskList(taskList);
-}
-
-function editTask(id) {
-    editingTaskId = id;
-    const editedTaskText = document.getElementById("editedTaskText");
-    const task = tasks.find(task => task.id === id);
-    
-    editedTaskText.value = task.text;
-
-    // Display the Bootstrap modal for editing
-    const editTaskModal = new bootstrap.Modal(document.getElementById('editTaskModal'), {
-        keyboard: false
+    // get the index of the task we want to replace
+    const indexToReplace = todos.findIndex(function (t) {
+        return t.id == id;
     });
-    editTaskModal.show();
-}
 
-function submitEditedTask() {
-    const editedTaskText = document.getElementById("editedTaskText").value;
-
-    if (editedTaskText.trim() !== "") {
-        const editedTask = tasks.find(task => task.id === editingTaskId);
-        editedTask.text = editedTaskText;
-        editingTaskId = null;
-
-        const taskList = document.getElementById("taskList");
-        updateTaskList(taskList);
-
-        // Close the Bootstrap modal after submitting
-        const editTaskModal = new bootstrap.Modal(document.getElementById('editTaskModal'));
-        editTaskModal.hide();
+    // need to check if the index really exists
+    // if the id doesn't exist, then findIndex will return -1
+    if (indexToReplace > -1) {
+        todos[indexToReplace] = modifiedTask;
     }
+
 }
 
-function updateTaskList(taskList) {
-    taskList.innerHTML = "";
-
-    tasks.forEach(task => {
-        const li = document.createElement("li");
-        li.innerHTML = `
-            <span>${task.text}</span>
-            <button onclick="editTask(${task.id})">Edit</button>
-            <button onclick="deleteTask(${task.id})">Delete</button>
-        `;
-        taskList.appendChild(li);
-    });
+function deleteTask(todos, id) {
+    let indexToDelete = null;
+    for (let i = 0; i < todos.length; i++) {
+        if (todos[i].id == id) {
+            indexToDelete = i;
+            break;
+        }
+    }
+    if (indexToDelete !== null) {
+        todos.splice(indexToDelete, 1);
+    } else {
+        console.log("Task is not found");
+    }
 }
