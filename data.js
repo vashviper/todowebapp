@@ -1,45 +1,63 @@
 let todos = [];
+
 function addTodo(todos, name, urgency) {
     let newTodo = {
-        id: Math.floor(Math.random() * 100 + 1),
+        // id is unique
+        id: Math.floor(Math.random() * 100 + 1), // Random number from 1 - 100
         name: name,
         urgency: urgency
     };
     todos.push(newTodo);
 }
 
-function modifyTask(todos, id, newName, newUrgency) {
-    // create the new task
-    let modifiedTask = {
-        "id": id,
-        "name": newName,
-        "urgency": newUrgency
+function modifyTask(todos, id, newTaskName, newUrgency) { // id = 30
+    let task = null;
+
+    for (let t of todos) {
+        if (t.id == id) {
+            task = t;
+            break
+        }
     }
 
-    // get the index of the task we want to replace
-    const indexToReplace = todos.findIndex(function (t) {
-        return t.id == id;
-    });
-
-    // need to check if the index really exists
-    // if the id doesn't exist, then findIndex will return -1
-    if (indexToReplace > -1) {
-        todos[indexToReplace] = modifiedTask;
+    if (task) {
+        task.name = newTaskName;
+        task.urgency = newUrgency;
+    } else {
+        console.log("Task is not found modify");
     }
-
 }
 
-function deleteTask(todos, id) {
-    let indexToDelete = null;
+function deleteTask(todos, id) { 
+    let indexToDelete = null; 
+    // loop through todos array
     for (let i = 0; i < todos.length; i++) {
         if (todos[i].id == id) {
             indexToDelete = i;
-            break;
         }
     }
+
+    // deleting of item from todos array
     if (indexToDelete !== null) {
         todos.splice(indexToDelete, 1);
     } else {
-        console.log("Task is not found");
+        console.log("Task is not found delete");
     }
+}
+
+
+function deleteAllTaskWithId(todos, id) {
+    let indexToDeleteArray = []
+
+    for (let i = 0; i < todos.length; i++) {
+        if (todos[i].id == id) {
+            indexToDeleteArray.push(i)
+        }
+    }
+
+    for (let i = indexToDeleteArray.length - 1; i >= 0; i--) {
+        let indexToDelete = indexToDeleteArray[i]
+        todos.splice(indexToDelete, 1);
+    }
+    
 }
