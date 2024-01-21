@@ -24,10 +24,10 @@ document.addEventListener('DOMContentLoaded', function() {
     })
   
       // add three todos
-      addTodo(todos, "Walk the dog", 5);
-      addTodo(todos, "Clean the room", 3);
-      addTodo(todos, "Pay the bill", 2);
-      renderTodos(todos);
+    //   addTodo(todos, "Walk the dog", 5);
+    //   addTodo(todos, "Clean the room", 3);
+    //   addTodo(todos, "Pay the bill", 2);
+    //   renderTodos(todos);
     }
   
   
